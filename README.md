@@ -118,3 +118,43 @@ In your Config/core.php file, make sure this line:
 Configure::write('debug', 2);
 has a value of 1 or 2. (read more about debug mode here)
 
+Login
+
+$ psql -U cakeuser -d cakedb
+And finally in psql console, set password
+
+Postgress:
+cakedb=> \password cakeuser
+Enter new password: secret
+Enter it again: secret
+In Cakephp root, rename the file Config\database.php.default to Config\database.php. Change the $default variable as below :-
+
+public $default = array(
+    'datasource' => 'Database/Postgres',
+    'persistent' => false,
+    'host' => 'localhost',
+    'login' => 'cakeuser',
+    'password' => 'secret',
+    'database' => 'cakedb',
+    'prefix' => '',
+    //'encoding' => 'utf8',
+);
+
+
+Step 3: To remove the salt and seed error shown on top of the localhost/cake page we have to edit core.php file.
+
+$ sudo nano core.php
+
+Find this section and replace both the strings with any random strings or you can use these strings also.
+
+/* A random string used in security hashing methods. */
+
+Configure::write(‘Security.salt’, ‘fvjhdj8fvn85grg73fbrvfn9fjFGfnhvt758nADG‘);
+
+/* A random numeric string (digits only) used to encrypt/decrypt strings. */
+
+Configure::write(‘Security.cipherSeed’, ‘55857485748594575784348784787475‘);
+
+Then press ctrl+x, press y and enter to save file.
+
+Refresh localhost/cake page. And its done.
