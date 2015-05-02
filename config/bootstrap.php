@@ -34,9 +34,11 @@ require ROOT . DS . 'vendor' . DS . 'autoload.php';
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
 // You can remove this if you are confident you have intl installed.
+
 if (!extension_loaded('intl')) {
     trigger_error('You must enable the intl extension to use CakePHP.', E_USER_ERROR);
 }
+
 
 use Cake\Cache\Cache;
 use Cake\Console\ConsoleErrorHandler;
@@ -44,7 +46,6 @@ use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Core\Plugin;
-use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
 use Cake\Log\Log;
@@ -194,9 +195,3 @@ if (Configure::read('debug')) {
 DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
-
-/**
- * Enable default locale format parsing.
- * This is needed for matching the auto-localized string output of Time() class when parsing dates.
- */
-Type::build('datetime')->useLocaleParser();
